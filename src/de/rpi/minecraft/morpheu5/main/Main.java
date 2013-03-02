@@ -18,24 +18,22 @@ public class Main {
 		System.out.println("########## by Morpheu5 #########");
 		System.out.println("################################");
 
-		
 		createWindow();
-		
-		Minecraft mine = Minecraft.connect();
-		
-		
+
+		Minecraft mine = Minecraft.connect("raspberrypi");
+		// mine.postToChat("Hello");
 
 	}
 
 	private static void createWindow() {
 		Window main_window = new Window();
-	
+
 		// Zentrierung / Breite & Hoehe des Fensters
 		Dimension frameSize = new Dimension(600, 480);
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		int top = (screenSize.height - frameSize.height) / 2;
 		int left = (screenSize.width - frameSize.width) / 2;
-		
+
 		main_window.setSize(frameSize);
 		main_window.setLocation(left, top);
 		main_window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
