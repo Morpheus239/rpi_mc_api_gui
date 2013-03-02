@@ -2,12 +2,20 @@ package de.rpi.minecraft.morpheu5.main;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.IOException;
+import java.util.logging.FileHandler;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import pi.Minecraft;
 
 import de.rpi.minecraft.morpheu5.gui.Window;
+import de.rpi.minecraft.morpheu5.log.rpi_logger;
 
 public class Main {
 
@@ -18,9 +26,23 @@ public class Main {
 		System.out.println("########## by Morpheu5 #########");
 		System.out.println("################################");
 
+		// Create Logger
+		rpi_logger.initLogger();
+
+		// Get Server Connection
+		String input = JOptionPane.showInputDialog(null,
+				"Choose the Minecraft Server", "localhost");
+
+		if (input == null)
+			System.exit(0);
+		else if (input.isEmpty()) {
+			input = "localhost";
+			rpi_logger.LOGGER.log(Level.INFO, "No Input: Using localhost");
+		}
+
 		createWindow();
 
-		Minecraft mine = Minecraft.connect("raspberrypi");
+		// Minecraft mine = Minecraft.connect(input);
 		// mine.postToChat("Hello");
 
 	}
