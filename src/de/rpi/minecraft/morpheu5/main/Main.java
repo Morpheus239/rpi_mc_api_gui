@@ -14,11 +14,17 @@ import javax.swing.JOptionPane;
 
 import pi.Minecraft;
 
+import de.rpi.minecraft.morpheu5.controller.Controller;
 import de.rpi.minecraft.morpheu5.gui.Window;
 import de.rpi.minecraft.morpheu5.log.rpi_logger;
 
 public class Main {
 
+	private static Controller controller;
+	private static Window main_window;
+	
+	
+	
 	public static void main(String[] args) {
 
 		System.out.println("################################");
@@ -31,7 +37,10 @@ public class Main {
 
 		// Get Server Connection
 		String input = JOptionPane.showInputDialog(null,
-				"Choose the Minecraft Server", "localhost");
+				"Choose the Minecraft Server", "10.42.0.75");
+
+		// String input = JOptionPane.showInputDialog(null,
+		// "Choose the Minecraft Server", "localhost");
 
 		if (input == null)
 			System.exit(0);
@@ -40,15 +49,19 @@ public class Main {
 			rpi_logger.LOGGER.log(Level.INFO, "No Input: Using localhost");
 		}
 
+		
 		createWindow();
-
-		// Minecraft mine = Minecraft.connect(input);
-		// mine.postToChat("Hello");
-
+		createController(input);
 	}
 
+	private static void createController(String input) {
+		controller = new Controller(input);
+		main_window.addController(controller);
+	}
+
+	
 	private static void createWindow() {
-		Window main_window = new Window();
+		main_window = new Window();
 
 		// Zentrierung / Breite & Hoehe des Fensters
 		Dimension frameSize = new Dimension(600, 480);

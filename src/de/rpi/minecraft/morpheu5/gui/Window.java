@@ -19,9 +19,15 @@ import javax.swing.JButton;
 import java.awt.FlowLayout;
 import javax.swing.SwingConstants;
 
+import de.rpi.minecraft.morpheu5.interfaces.IWindowControl;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+
 public class Window extends JFrame{
 	private JTextField textField_chat_data_input;
-
+	private IWindowControl control;
 	
 	public Window() {
 		super("RPi MC API GUI");
@@ -91,9 +97,20 @@ public class Window extends JFrame{
 		panel_chat_data_aktion.setLayout(new GridLayout(0, 2, 0, 0));
 		
 		JButton btnClear = new JButton("Clear");
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textField_chat_data_input.setText("");
+			}
+		});
 		panel_chat_data_aktion.add(btnClear);
 		
 		JButton btnSend = new JButton("Send");
+		btnSend.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				control.postToChat(textField_chat_data_input.getText());
+				textField_chat_data_input.setText("");
+			}
+		});
 		panel_chat_data_aktion.add(btnSend);
 		
 		JPanel panel_1 = new JPanel();
@@ -101,7 +118,9 @@ public class Window extends JFrame{
 	}
 	
 	
-	
+	public void addController(IWindowControl control) {
+		this.control = control;
+	}
 	
 	
 }
