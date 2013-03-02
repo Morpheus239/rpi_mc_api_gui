@@ -5,6 +5,8 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
+import pi.Minecraft;
+
 import de.rpi.minecraft.morpheu5.gui.Window;
 
 public class Main {
@@ -16,6 +18,16 @@ public class Main {
 		System.out.println("########## by Morpheu5 #########");
 		System.out.println("################################");
 
+		
+		createWindow();
+		
+		Minecraft mine = Minecraft.connect();
+		
+		
+
+	}
+
+	private static void createWindow() {
 		Window main_window = new Window();
 	
 		// Zentrierung / Breite & Hoehe des Fensters
@@ -28,7 +40,6 @@ public class Main {
 		main_window.setLocation(left, top);
 		main_window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		main_window.setVisible(true);
-
 	}
 
 }
