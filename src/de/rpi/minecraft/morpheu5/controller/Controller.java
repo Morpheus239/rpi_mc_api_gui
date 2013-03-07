@@ -5,6 +5,9 @@ import pi.Minecraft;
 
 public class Controller implements IWindowControl{
 
+
+	
+	
 	private Minecraft mine;
 	
 	public Controller(String host) {

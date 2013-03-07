@@ -2,17 +2,10 @@ package de.rpi.minecraft.morpheu5.main;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.io.IOException;
-import java.util.logging.FileHandler;
-import java.util.logging.Handler;
 import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-
-import pi.Minecraft;
 
 import de.rpi.minecraft.morpheu5.controller.Controller;
 import de.rpi.minecraft.morpheu5.gui.Window;
@@ -22,9 +15,7 @@ public class Main {
 
 	private static Controller controller;
 	private static Window main_window;
-	
-	
-	
+
 	public static void main(String[] args) {
 
 		System.out.println("################################");
@@ -49,7 +40,6 @@ public class Main {
 			rpi_logger.LOGGER.log(Level.INFO, "No Input: Using localhost");
 		}
 
-		
 		createWindow();
 		createController(input);
 	}
@@ -59,7 +49,6 @@ public class Main {
 		main_window.addController(controller);
 	}
 
-	
 	private static void createWindow() {
 		main_window = new Window();
 
