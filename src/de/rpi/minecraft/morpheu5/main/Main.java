@@ -22,6 +22,7 @@ public class Main {
 		System.out.println("##### RPi Minecraft API GUI ####");
 		System.out.println("########## by Morpheu5 #########");
 		System.out.println("################################");
+		System.out.println("############# TEST #############");
 
 		// Create Logger
 		rpi_logger.initLogger();
