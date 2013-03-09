@@ -4,6 +4,6 @@ public interface IGuiConsole {
 
 	
 	public void showID(int id);
-	
+	public void showXYZ(int x, int y, int z);
 	
 }

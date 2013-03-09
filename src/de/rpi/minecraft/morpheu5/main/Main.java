@@ -8,6 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 import de.rpi.minecraft.morpheu5.controller.Controller;
+import de.rpi.minecraft.morpheu5.gui.Console;
 import de.rpi.minecraft.morpheu5.gui.Window;
 import de.rpi.minecraft.morpheu5.log.rpi_logger;
 
@@ -15,6 +16,7 @@ public class Main {
 
 	private static Controller controller;
 	private static Window main_window;
+	private static Console console_window;
 
 	public static void main(String[] args) {
 
@@ -40,28 +42,43 @@ public class Main {
 			rpi_logger.LOGGER.log(Level.INFO, "No Input: Using localhost");
 		}
 
-		createWindow();
+		createWindows();
 		createController(input);
 	}
 
-	private static void createController(String input) {
-		controller = new Controller(input);
+	private static void createController(String hostadress) {
+		controller = new Controller(hostadress);
 		main_window.addController(controller);
+		controller.connectConsole(console_window);
+		
 	}
 
-	private static void createWindow() {
+	private static void createWindows() {
 		main_window = new Window();
+		console_window = new Console();
 
 		// Zentrierung / Breite & Hoehe des Fensters
-		Dimension frameSize = new Dimension(600, 480);
+		Dimension main_window_size = new Dimension(600, 480);
+		Dimension console_window_size = new Dimension(450, 200);
+		
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		int top = (screenSize.height - frameSize.height) / 2;
-		int left = (screenSize.width - frameSize.width) / 2;
-
-		main_window.setSize(frameSize);
+		int top = (screenSize.height - main_window_size.height) / 2;
+		int left = (screenSize.width - main_window_size.width) / 2;
+		left -=200;
+		
+		main_window.setSize(main_window_size);
 		main_window.setLocation(left, top);
 		main_window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		console_window.setSize(console_window_size);
+		console_window.setLocation(left+600, top);
+		console_window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 		main_window.setVisible(true);
+		console_window.setVisible(true);
+		
+		
+		
 	}
 
 }

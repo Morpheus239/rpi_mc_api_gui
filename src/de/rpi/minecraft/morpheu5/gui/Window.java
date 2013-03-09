@@ -33,7 +33,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.ListSelectionModel;
 
-public class Window extends JFrame implements IGuiConsole{
+public class Window extends JFrame {
 
 	private IWindowControl control;
 	private Command currentCommand = Command.NONE;
@@ -54,6 +54,10 @@ public class Window extends JFrame implements IGuiConsole{
 				case 1:
 					currentCommand = Command.WORLD_GETBLOCK;
 					break;
+					
+				case 2:
+					currentCommand = Command.PLAYER_GETPOS;
+					break;
 
 				default:
 					break;
@@ -65,6 +69,7 @@ public class Window extends JFrame implements IGuiConsole{
 
 		create_chat_tab(tabbedPane);
 		create_world_tab(tabbedPane);
+		create_player_tab(tabbedPane);
 
 		// Initial Value
 		currentCommand = Command.CHAT_POSTTOCHAT;
@@ -72,7 +77,7 @@ public class Window extends JFrame implements IGuiConsole{
 
 	private void create_chat_tab(JTabbedPane tabbedPane) {
 		JPanel panel_chat = new JPanel();
-		tabbedPane.addTab("Chat", null, panel_chat, null);
+		tabbedPane.addTab("chat", null, panel_chat, null);
 		panel_chat.setLayout(new BorderLayout(0, 0));
 
 		JList list_commands = new JList();
@@ -82,10 +87,12 @@ public class Window extends JFrame implements IGuiConsole{
 				0, 0, 0)));
 		list_commands.setPreferredSize(new Dimension(150, 0));
 		list_commands.setModel(new AbstractListModel() {
-			String[] values = new String[] {"postToChat"};
+			String[] values = new String[] { "postToChat" };
+
 			public int getSize() {
 				return values.length;
 			}
+
 			public Object getElementAt(int index) {
 				return values[index];
 			}
@@ -154,7 +161,8 @@ public class Window extends JFrame implements IGuiConsole{
 			public void actionPerformed(ActionEvent arg0) {
 
 				if (currentCommand == Command.CHAT_POSTTOCHAT) {
-					control.postToChat(textField_data_input.getText());
+					System.out.println(control);
+					control.chat_postToChat(textField_data_input.getText());
 					textField_data_input.setText("");
 				}
 
@@ -186,6 +194,10 @@ public class Window extends JFrame implements IGuiConsole{
 						currentCommand = Command.WORLD_SETBLOCK;
 						break;
 
+					case 9:
+						currentCommand = Command.PLAYER_GETPOS;
+						break;
+
 					default:
 						break;
 					}
@@ -199,10 +211,14 @@ public class Window extends JFrame implements IGuiConsole{
 		list_commands.setPreferredSize(new Dimension(200, 0));
 		list_commands.setValueIsAdjusting(true);
 		list_commands.setModel(new AbstractListModel() {
-			String[] values = new String[] {"getBlock", "getBlockWithData", "setBlock", "setBlocks", "getHeight", "getPlayerIds", "setting", "checkpoint.save", "checkpoint.restore"};
+			String[] values = new String[] { "getBlock", "getBlockWithData",
+					"setBlock", "setBlocks", "getHeight", "getPlayerIds",
+					"setting", "checkpoint.save", "checkpoint.restore", "DUMMY" };
+
 			public int getSize() {
 				return values.length;
 			}
+
 			public Object getElementAt(int index) {
 				return values[index];
 			}
@@ -280,6 +296,129 @@ public class Window extends JFrame implements IGuiConsole{
 				case WORLD_SETBLOCK:
 					break;
 
+				case PLAYER_GETPOS:
+					control.player_getTile();
+					System.out.println("DONE");
+					break;
+
+				default:
+					break;
+				}
+
+			}
+		});
+		panel_data_action.add(btnSend);
+	}
+
+	private void create_player_tab(JTabbedPane tabbedPane) {
+		JPanel panel_player = new JPanel();
+		tabbedPane.addTab("player", null, panel_player, null);
+		panel_player.setLayout(new BorderLayout(0, 0));
+
+		final JList list_commands = new JList();
+		list_commands.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		list_commands.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent arg0) {
+				if (arg0.getValueIsAdjusting()) {
+					switch (list_commands.getSelectedIndex()) {
+					case 0:
+						currentCommand = Command.PLAYER_GETPOS;
+						
+						
+						break;
+
+					default:
+						break;
+					}
+
+				}
+
+			}
+		});
+		list_commands.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(
+				0, 0, 0)));
+		list_commands.setPreferredSize(new Dimension(200, 0));
+		list_commands.setValueIsAdjusting(true);
+		list_commands.setModel(new AbstractListModel() {
+			String[] values = new String[] { "getPos" };
+
+			public int getSize() {
+				return values.length;
+			}
+
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
+		list_commands.setSelectedIndex(0);
+		panel_player.add(list_commands, BorderLayout.WEST);
+
+		JPanel panel_info = new JPanel();
+		panel_player.add(panel_info, BorderLayout.CENTER);
+		panel_info.setLayout(new GridLayout(2, 1, 0, 0));
+
+		JPanel panel_info_description = new JPanel();
+		panel_info_description.setBackground(Color.WHITE);
+		panel_info.add(panel_info_description);
+		panel_info_description.setLayout(new BorderLayout(0, 0));
+
+		JLabel lblHeadline = new JLabel("COMMAND");
+		lblHeadline.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0,
+				0, 0)));
+		lblHeadline.setBackground(Color.WHITE);
+		lblHeadline.setFont(new Font("Dialog", Font.BOLD, 30));
+		panel_info_description.add(lblHeadline, BorderLayout.NORTH);
+
+		JTextPane txtDescription = new JTextPane();
+		txtDescription.setEditable(false);
+		txtDescription.setText("DESC");
+		panel_info_description.add(txtDescription, BorderLayout.CENTER);
+
+		JPanel panel_info_input = new JPanel();
+		panel_info.add(panel_info_input);
+		panel_info_input.setLayout(new BorderLayout(0, 0));
+
+		JLabel lblValue = new JLabel("Value");
+		lblValue.setVerticalAlignment(SwingConstants.TOP);
+		lblValue.setPreferredSize(new Dimension(80, 80));
+		lblValue.setFont(new Font("Dialog", Font.BOLD, 30));
+		panel_info_input.add(lblValue, BorderLayout.NORTH);
+
+		JPanel panel_data_input = new JPanel();
+		panel_info_input.add(panel_data_input, BorderLayout.CENTER);
+		panel_data_input.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+
+		JLabel label_data_message = new JLabel("Message:");
+		label_data_message.setFont(new Font("Dialog", Font.BOLD, 20));
+		panel_data_input.add(label_data_message);
+
+		final JTextField textField_data_input = new JTextField();
+		textField_data_input.setHorizontalAlignment(SwingConstants.LEFT);
+		panel_data_input.add(textField_data_input);
+		textField_data_input.setColumns(10);
+
+		JPanel panel_data_action = new JPanel();
+		panel_info_input.add(panel_data_action, BorderLayout.SOUTH);
+		panel_data_action.setLayout(new GridLayout(0, 2, 0, 0));
+
+		JButton btnClear = new JButton("Clear");
+		btnClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				textField_data_input.setText("");
+			}
+		});
+		panel_data_action.add(btnClear);
+
+		JButton btnSend = new JButton("Send");
+		btnSend.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				switch (currentCommand) {
+
+				case PLAYER_GETPOS:
+					control.player_getTile();
+					break;
+
 				default:
 					break;
 				}
@@ -291,11 +430,6 @@ public class Window extends JFrame implements IGuiConsole{
 
 	public void addController(IWindowControl control) {
 		this.control = control;
-	}
-
-	@Override
-	public void showID(int id) {
-		
 	}
 
 }
