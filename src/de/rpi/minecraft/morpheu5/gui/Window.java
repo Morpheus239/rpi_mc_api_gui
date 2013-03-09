@@ -21,6 +21,7 @@ import javax.swing.SwingConstants;
 
 import de.rpi.minecraft.morpheu5.controller.Command;
 import de.rpi.minecraft.morpheu5.controller.Controller;
+import de.rpi.minecraft.morpheu5.interfaces.IGuiConsole;
 import de.rpi.minecraft.morpheu5.interfaces.IWindowControl;
 
 import java.awt.event.ActionListener;
@@ -32,7 +33,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.ListSelectionModel;
 
-public class Window extends JFrame {
+public class Window extends JFrame implements IGuiConsole{
 
 	private IWindowControl control;
 	private Command currentCommand = Command.NONE;
@@ -44,20 +45,19 @@ public class Window extends JFrame {
 		tabbedPane.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent arg0) {
 
-				// Tabchange --> Change Current List Element
+				// Tabchange --> Change Current List Element to first of List
 				switch (tabbedPane.getSelectedIndex()) {
 				case 0:
-					currentCommand = Command.postToChat;
+					currentCommand = Command.CHAT_POSTTOCHAT;
 					break;
 
 				case 1:
-					currentCommand = Command.DUMMY1;
+					currentCommand = Command.WORLD_GETBLOCK;
 					break;
 
 				default:
 					break;
 				}
-				System.out.println(currentCommand);
 
 			}
 		});
@@ -65,10 +65,9 @@ public class Window extends JFrame {
 
 		create_chat_tab(tabbedPane);
 		create_world_tab(tabbedPane);
-		
-		
-		//Initial Value
-		currentCommand = Command.postToChat;
+
+		// Initial Value
+		currentCommand = Command.CHAT_POSTTOCHAT;
 	}
 
 	private void create_chat_tab(JTabbedPane tabbedPane) {
@@ -83,12 +82,10 @@ public class Window extends JFrame {
 				0, 0, 0)));
 		list_commands.setPreferredSize(new Dimension(150, 0));
 		list_commands.setModel(new AbstractListModel() {
-			String[] values = new String[] { "PostToChat" };
-
+			String[] values = new String[] {"postToChat"};
 			public int getSize() {
 				return values.length;
 			}
-
 			public Object getElementAt(int index) {
 				return values[index];
 			}
@@ -156,8 +153,7 @@ public class Window extends JFrame {
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				System.out.println(currentCommand);
-				if (currentCommand == Command.postToChat) {
+				if (currentCommand == Command.CHAT_POSTTOCHAT) {
 					control.postToChat(textField_data_input.getText());
 					textField_data_input.setText("");
 				}
@@ -179,37 +175,34 @@ public class Window extends JFrame {
 				if (arg0.getValueIsAdjusting()) {
 					switch (list_commands.getSelectedIndex()) {
 					case 0:
-						currentCommand = Command.DUMMY1;
+						currentCommand = Command.WORLD_GETBLOCK;
 						break;
 
 					case 1:
-						currentCommand = Command.DUMMY2;
+						currentCommand = Command.WORLD_GETBLOCKWITHDATA;
 						break;
 
 					case 2:
-						currentCommand = Command.DUMMY3;
+						currentCommand = Command.WORLD_SETBLOCK;
 						break;
 
 					default:
 						break;
 					}
 
-					System.out.println(currentCommand);
 				}
 
 			}
 		});
 		list_commands.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(
 				0, 0, 0)));
-		list_commands.setPreferredSize(new Dimension(150, 0));
+		list_commands.setPreferredSize(new Dimension(200, 0));
 		list_commands.setValueIsAdjusting(true);
 		list_commands.setModel(new AbstractListModel() {
-			String[] values = new String[] { "CMD1", "CMD2", "CMD3" };
-
+			String[] values = new String[] {"getBlock", "getBlockWithData", "setBlock", "setBlocks", "getHeight", "getPlayerIds", "setting", "checkpoint.save", "checkpoint.restore"};
 			public int getSize() {
 				return values.length;
 			}
-
 			public Object getElementAt(int index) {
 				return values[index];
 			}
@@ -278,17 +271,15 @@ public class Window extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 
 				switch (currentCommand) {
-				case DUMMY1:
-					System.out.println("DUMMY1");
+				case WORLD_GETBLOCK:
 					break;
 
-				case DUMMY2:
-					System.out.println("DUMMY2");
+				case WORLD_GETBLOCKWITHDATA:
 					break;
 
-				case DUMMY3:
-					System.out.println("DUMMY3");
+				case WORLD_SETBLOCK:
 					break;
+
 				default:
 					break;
 				}
@@ -300,6 +291,11 @@ public class Window extends JFrame {
 
 	public void addController(IWindowControl control) {
 		this.control = control;
+	}
+
+	@Override
+	public void showID(int id) {
+		
 	}
 
 }

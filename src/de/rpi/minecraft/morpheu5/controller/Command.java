@@ -1,5 +1,5 @@
 package de.rpi.minecraft.morpheu5.controller;
 
 public enum Command {
-	NONE, postToChat, DUMMY1, DUMMY2, DUMMY3
+	NONE, CHAT_POSTTOCHAT, WORLD_GETBLOCK, WORLD_GETBLOCKWITHDATA, WORLD_SETBLOCK
 }
