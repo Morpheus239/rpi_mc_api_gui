@@ -35,7 +35,7 @@ import javax.swing.ListSelectionModel;
 public class Window extends JFrame {
 
 	private IWindowControl control;
-	private Command currentCommand = Command.postToChat;
+	private Command currentCommand = Command.NONE;
 
 	public Window() {
 		super("RPi MC API GUI");
@@ -65,6 +65,10 @@ public class Window extends JFrame {
 
 		create_chat_tab(tabbedPane);
 		create_world_tab(tabbedPane);
+		
+		
+		//Initial Value
+		currentCommand = Command.postToChat;
 	}
 
 	private void create_chat_tab(JTabbedPane tabbedPane) {
@@ -152,6 +156,7 @@ public class Window extends JFrame {
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
+				System.out.println(currentCommand);
 				if (currentCommand == Command.postToChat) {
 					control.postToChat(textField_data_input.getText());
 					textField_data_input.setText("");
@@ -171,7 +176,6 @@ public class Window extends JFrame {
 		list_commands.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list_commands.addListSelectionListener(new ListSelectionListener() {
 			public void valueChanged(ListSelectionEvent arg0) {
-
 				if (arg0.getValueIsAdjusting()) {
 					switch (list_commands.getSelectedIndex()) {
 					case 0:
@@ -189,7 +193,7 @@ public class Window extends JFrame {
 					default:
 						break;
 					}
-					
+
 					System.out.println(currentCommand);
 				}
 
