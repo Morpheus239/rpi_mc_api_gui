@@ -3,10 +3,14 @@ package de.rpi.minecraft.morpheu5.gui;
 import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 import java.awt.BorderLayout;
+
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.AbstractListModel;
+import javax.swing.KeyStroke;
+
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Font;
@@ -27,6 +31,8 @@ import de.rpi.minecraft.morpheu5.interfaces.IWindowControl;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ChangeListener;
@@ -140,6 +146,8 @@ public class Window extends JFrame {
 		panel_data_input.add(label_data_message);
 
 		final JTextField textField_data_input = new JTextField();
+		
+		
 		textField_data_input.setHorizontalAlignment(SwingConstants.LEFT);
 		panel_data_input.add(textField_data_input);
 		textField_data_input.setColumns(10);
@@ -157,11 +165,13 @@ public class Window extends JFrame {
 		panel_data_action.add(btnClear);
 
 		JButton btnSend = new JButton("Send");
+		btnSend.setMnemonic('s');
+		
+		
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				if (currentCommand == Command.CHAT_POSTTOCHAT) {
-					System.out.println(control);
 					control.chat_postToChat(textField_data_input.getText());
 					textField_data_input.setText("");
 				}
@@ -379,12 +389,14 @@ public class Window extends JFrame {
 		panel_info_input.setLayout(new BorderLayout(0, 0));
 
 		JLabel lblValue = new JLabel("Value");
+		lblValue.setVisible(false);
 		lblValue.setVerticalAlignment(SwingConstants.TOP);
 		lblValue.setPreferredSize(new Dimension(80, 80));
 		lblValue.setFont(new Font("Dialog", Font.BOLD, 30));
 		panel_info_input.add(lblValue, BorderLayout.NORTH);
 
 		JPanel panel_data_input = new JPanel();
+		panel_data_input.setVisible(false);
 		panel_info_input.add(panel_data_input, BorderLayout.CENTER);
 		panel_data_input.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
 
