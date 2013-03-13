@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.1.1" icons="true" always-add-relationships="true" generalizations="true" realizations="true" 
+  associations="true" dependencies="true" nesting-relationships="true">  
+  <interface id="1" language="java" name="de.rpi.minecraft.morpheu5.interfaces.IGuiConsole" project="rpi_mc_api_gui" 
+    file="/rpi_mc_api_gui/src/de/rpi/minecraft/morpheu5/interfaces/IGuiConsole.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="97" width="163" x="347" y="437"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="2" language="java" name="de.rpi.minecraft.morpheu5.controller.Controller" project="rpi_mc_api_gui" 
+    file="/rpi_mc_api_gui/src/de/rpi/minecraft/morpheu5/controller/Controller.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="187" width="211" x="550" y="210"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="de.rpi.minecraft.morpheu5.gui.Window" project="rpi_mc_api_gui" 
+    file="/rpi_mc_api_gui/src/de/rpi/minecraft/morpheu5/gui/Window.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="151" width="208" x="801" y="210"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <interface id="4" language="java" name="de.rpi.minecraft.morpheu5.interfaces.IWindowControl" project="rpi_mc_api_gui" 
+    file="/rpi_mc_api_gui/src/de/rpi/minecraft/morpheu5/interfaces/IWindowControl.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="115" width="211" x="550" y="437"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <enumeration id="5" language="java" name="de.rpi.minecraft.morpheu5.controller.Command" project="rpi_mc_api_gui" 
+    file="/rpi_mc_api_gui/src/de/rpi/minecraft/morpheu5/controller/Command.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="187" width="243" x="801" y="437"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="6" language="java" name="de.rpi.minecraft.morpheu5.main.Main" project="rpi_mc_api_gui" 
+    file="/rpi_mc_api_gui/src/de/rpi/minecraft/morpheu5/main/Main.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="133" width="161" x="440" y="37"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="de.rpi.minecraft.morpheu5.gui.Console" project="rpi_mc_api_gui" 
+    file="/rpi_mc_api_gui/src/de/rpi/minecraft/morpheu5/gui/Console.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="169" width="141" x="369" y="210"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="de.rpi.minecraft.morpheu5.log.rpi_logger" project="rpi_mc_api_gui" 
+    file="/rpi_mc_api_gui/src/de/rpi/minecraft/morpheu5/log/rpi_logger.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="143" width="287" x="42" y="210"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" accessors="true" 
+      visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <dependency id="9">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="8"/>  
+  </dependency>  
+  <association id="10">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="11" name="main_window"/>      
+      <multiplicity id="12" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="13">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="14" name="control"/>      
+      <multiplicity id="15" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="4" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="16">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="17" name="console"/>      
+      <multiplicity id="18" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="19">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </realization>  
+  <association id="20">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="21" name="controller"/>      
+      <multiplicity id="22" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="2" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="23">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <association id="24">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="25" name="console_window"/>      
+      <multiplicity id="26" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="27">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="28" name="currentCommand"/>      
+      <multiplicity id="29" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="true" signature="true" 
+    accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
